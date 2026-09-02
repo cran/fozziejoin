@@ -226,6 +226,26 @@ testthat::test_that("Inner join is correct for Jaccard", {
   testthat::expect_true(all.equal(actual, expected))
 })
 
+testthat::test_that("Inner join is correct for Jaccard at max distance", {
+  # Max distance case
+  expected <- make_expected(
+    rep(1, 10),
+    na.omit(whoops$Name)
+  )
+  expected$Name.y <- c(expected$Name.y)
+
+  actual <- fozzie_string_join(
+    test_df[1:1, ],
+    whoops,
+    by = list("Name" = "Name"),
+    method = "jaccard",
+    max_distance = 1.0,
+    q = 3,
+    nthread = 2
+  )
+  testthat::expect_true(all.equal(actual, expected))
+})
+
 
 # Jaro-Winkler
 testthat::test_that("Inner join is correct for Jaro-Winkler", {
@@ -329,34 +349,3 @@ testthat::test_that("Multi column joins work", {
 
   testthat::expect_true(all.equal(actual, expected))
 })
-
-edit_methods <- c("hamming", "osa", "dl", "lcs", "lv", "jw")
-for (method in edit_methods) {
-  testthat::test_that(sprintf("nthread argument works for %s", method), {
-    runtime <- system.time(fozzie_string_join(
-      do.call(rbind, replicate(10, test_df, simplify = FALSE)),
-      whoops,
-      by = c('Name'),
-      method = method,
-      max_distance = 1,
-      nthread = 2
-    ))
-    testthat::expect_lte(runtime["user.self"], 2.5 * runtime["elapsed"])
-  })
-}
-
-gram_methods <- c("cosine", "jaccard", "qgram")
-for (method in gram_methods) {
-  testthat::test_that(sprintf("nthread argument works for %s distances", method), {
-      runtime <- system.time(fozzie_string_inner_join(
-        baby1,
-        baby2,
-        by = 'name',
-        method = method,
-        max_distance = 1,
-        q = 2,
-        nthread = 2
-      ))
-      testthat::expect_lte(runtime["user.self"], 2.5 * runtime["elapsed"])
-  })
-}

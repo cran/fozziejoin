@@ -12,7 +12,7 @@
 
 <meta name="author" content="Jon Downs" />
 
-<meta name="date" content="2026-03-04" />
+<meta name="date" content="2026-09-01" />
 
 <title>String Distance Benchmarking</title>
 
@@ -341,7 +341,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">String Distance Benchmarking</h1>
 <h4 class="author">Jon Downs</h4>
-<h4 class="date">2026-03-04</h4>
+<h4 class="date">2026-09-01</h4>
 
 
 
@@ -365,7 +365,7 @@ differences in implementation, return types, and performance
 characteristics.</p>
 <p>For comprehensive benchmarking methods and results, please refer
 to:</p>
-<p>📂 <a href="https://github.com/fozzieverse/fozziejoin/tree/main/benchmarks/r">Benchmarking
+<p>📂 <a href="https://github.com/fozzieverse/fozziejoin/tree/main/benchmarks">Benchmarking
 Scripts</a> 📊 <a href="https://github.com/fozzieverse/fozziejoin/tree/main/benchmarks/results">Benchmarking
 Outputs</a> 🔁 <a href="https://github.com/fozzieverse/fozziejoin/blob/main/.github/workflows/run_rbase_benches.yml">Reproducible
 GitHub Workflow</a></p>
@@ -386,18 +386,19 @@ misspellings.</p>
 <span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a></span>
 <span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>nsamp <span class="ot">&lt;-</span> <span class="dv">100</span></span>
 <span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>seed <span class="ot">&lt;-</span> <span class="dv">2016</span></span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>params <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">method =</span> <span class="st">&quot;osa&quot;</span>, <span class="at">mode =</span> <span class="st">&quot;inner&quot;</span>, <span class="at">max_dist =</span> <span class="dv">1</span>, <span class="at">q =</span> <span class="dv">0</span>),</span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">method =</span> <span class="st">&quot;jaccard&quot;</span>, <span class="at">mode =</span> <span class="st">&quot;inner&quot;</span>, <span class="at">max_dist =</span> <span class="fl">0.5</span>, <span class="at">q =</span> <span class="dv">2</span>),</span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">method =</span> <span class="st">&quot;lv&quot;</span>, <span class="at">mode =</span> <span class="st">&quot;inner&quot;</span>, <span class="at">max_dist =</span> <span class="dv">1</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>)</span>
-<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="fu">data</span>(misspellings)</span>
-<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a>sub_misspellings <span class="ot">&lt;-</span> misspellings[<span class="fu">sample</span>(<span class="fu">seq_len</span>(<span class="fu">nrow</span>(misspellings)), nsamp), ]</span>
-<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>words <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(DICTIONARY)</span>
-<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span></code></pre></div>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>nthread <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>params <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">method =</span> <span class="st">&quot;osa&quot;</span>, <span class="at">mode =</span> <span class="st">&quot;inner&quot;</span>, <span class="at">max_dist =</span> <span class="dv">1</span>, <span class="at">q =</span> <span class="dv">0</span>),</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">method =</span> <span class="st">&quot;jaccard&quot;</span>, <span class="at">mode =</span> <span class="st">&quot;inner&quot;</span>, <span class="at">max_dist =</span> <span class="fl">0.5</span>, <span class="at">q =</span> <span class="dv">2</span>),</span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">method =</span> <span class="st">&quot;lv&quot;</span>, <span class="at">mode =</span> <span class="st">&quot;inner&quot;</span>, <span class="at">max_dist =</span> <span class="dv">1</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>)</span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="fu">data</span>(misspellings)</span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a>sub_misspellings <span class="ot">&lt;-</span> misspellings[<span class="fu">sample</span>(<span class="fu">seq_len</span>(<span class="fu">nrow</span>(misspellings)), nsamp), ]</span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>words <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(DICTIONARY)</span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="cf">for</span> (p <span class="cf">in</span> params) {</span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="fu">set.seed</span>(seed)</span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
@@ -406,29 +407,31 @@ misspellings.</p>
 <span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>      sub_misspellings, words,</span>
 <span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>      <span class="at">by =</span> <span class="fu">c</span>(<span class="at">misspelling =</span> <span class="st">&quot;word&quot;</span>),</span>
 <span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>      <span class="at">method =</span> p<span class="sc">$</span>method, <span class="at">mode =</span> p<span class="sc">$</span>mode,</span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>      <span class="at">max_dist =</span> p<span class="sc">$</span>max_dist, <span class="at">q =</span> p<span class="sc">$</span>q</span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>    ),</span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>    <span class="at">fozzie =</span> fozzie <span class="ot">&lt;-</span> <span class="fu">fozzie_string_join</span>(</span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>      sub_misspellings, words,</span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>      <span class="at">by =</span> <span class="fu">c</span>(<span class="at">misspelling =</span> <span class="st">&quot;word&quot;</span>),</span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>      <span class="at">method =</span> p<span class="sc">$</span>method, <span class="at">how =</span> p<span class="sc">$</span>mode,</span>
-<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>      <span class="at">max_distance =</span> p<span class="sc">$</span>max_dist, <span class="at">q =</span> p<span class="sc">$</span>q</span>
-<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>    ),</span>
-<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>    <span class="at">times =</span> <span class="dv">10</span></span>
-<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>  )</span>
-<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>  <span class="co"># Check for equal output</span></span>
-<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">isTRUE</span>(<span class="fu">all.equal</span>(fuzzy, fozzie))) {</span>
-<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>    <span class="fu">message</span>(<span class="st">&quot;Mismatch detected for method: &quot;</span>, p<span class="sc">$</span>method)</span>
-<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>  }</span>
-<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>  <span class="co"># Convert benchmark results to df, append to running list</span></span>
-<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(bench)</span>
-<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>  df<span class="sc">$</span>method <span class="ot">&lt;-</span> p<span class="sc">$</span>method</span>
-<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>  df<span class="sc">$</span>n_comps <span class="ot">&lt;-</span> <span class="fu">nrow</span>(sub_misspellings) <span class="sc">*</span> <span class="fu">nrow</span>(words)</span>
-<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>  df<span class="sc">$</span>os <span class="ot">&lt;-</span> <span class="fu">Sys.info</span>()[<span class="st">&quot;sysname&quot;</span>]</span>
-<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a>  results <span class="ot">&lt;-</span> <span class="fu">rbind</span>(results, df)</span>
-<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>      <span class="at">max_dist =</span> p<span class="sc">$</span>max_dist, <span class="at">q =</span> p<span class="sc">$</span>q,</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>      <span class="at">nthread =</span> nthread</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>    ),</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>    <span class="at">fozzie =</span> fozzie <span class="ot">&lt;-</span> <span class="fu">fozzie_string_join</span>(</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>      sub_misspellings, words,</span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>      <span class="at">by =</span> <span class="fu">c</span>(<span class="at">misspelling =</span> <span class="st">&quot;word&quot;</span>),</span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>      <span class="at">method =</span> p<span class="sc">$</span>method, <span class="at">how =</span> p<span class="sc">$</span>mode,</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>      <span class="at">max_distance =</span> p<span class="sc">$</span>max_dist, <span class="at">q =</span> p<span class="sc">$</span>q,</span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>      <span class="at">nthread =</span> nthread</span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>    ),</span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>    <span class="at">times =</span> <span class="dv">5</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>  )</span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>  <span class="co"># Check for equal output</span></span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">isTRUE</span>(<span class="fu">all.equal</span>(fuzzy, fozzie))) {</span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>    <span class="fu">message</span>(<span class="st">&quot;Mismatch detected for method: &quot;</span>, p<span class="sc">$</span>method)</span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>  }</span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>  <span class="co"># Convert benchmark results to df, append to running list</span></span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(bench)</span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>  df<span class="sc">$</span>method <span class="ot">&lt;-</span> p<span class="sc">$</span>method</span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a>  df<span class="sc">$</span>n_comps <span class="ot">&lt;-</span> <span class="fu">nrow</span>(sub_misspellings) <span class="sc">*</span> <span class="fu">nrow</span>(words)</span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a>  df<span class="sc">$</span>os <span class="ot">&lt;-</span> <span class="fu">Sys.info</span>()[<span class="st">&quot;sysname&quot;</span>]</span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a>  results <span class="ot">&lt;-</span> <span class="fu">rbind</span>(results, df)</span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div id="summary-results" class="section level3">
 <h3>Summary results</h3>
@@ -464,9 +467,9 @@ performance across methods and sample sizes.</p>
 <pre><code>## # A tibble: 3 × 5
 ##   method  n_comps mean_time.fuzzy mean_time.fozzie mean_ratio
 ##   &lt;chr&gt;     &lt;int&gt;           &lt;dbl&gt;            &lt;dbl&gt;      &lt;dbl&gt;
-## 1 jaccard 2013700           1384.            19.2        72.0
-## 2 lv      2013700           1187.             7.02      169. 
-## 3 osa     2013700           1197.             7.12      168.</code></pre>
+## 1 jaccard 2013700           2874.             16.4      175. 
+## 2 lv      2013700           1189.             12.7       93.9
+## 3 osa     2013700           1255.             17.2       73.1</code></pre>
 </div>
 <div id="considerations-when-benchmarking" class="section level3">
 <h3>Considerations when Benchmarking</h3>
@@ -482,15 +485,17 @@ results:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>fozzie_cos <span class="ot">&lt;-</span> <span class="fu">fozzie_string_join</span>(</span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  sub_misspellings, words, </span>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="at">by =</span> <span class="fu">c</span>(<span class="at">misspelling =</span> <span class="st">&#39;word&#39;</span>), </span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="at">method=</span><span class="st">&#39;cosine&#39;</span>, <span class="at">q =</span> <span class="dv">3</span>, <span class="at">max_distance =</span> <span class="fl">0.5</span>,</span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  <span class="at">distance_col =</span> <span class="st">&#39;dist&#39;</span></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>)</span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>fuzzy_cos <span class="ot">&lt;-</span> <span class="fu">stringdist_join</span>(</span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>  sub_misspellings, words,</span>
-<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>  <span class="at">by =</span> <span class="fu">c</span>(<span class="at">misspelling =</span> <span class="st">&#39;word&#39;</span>),</span>
-<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">&#39;cosine&#39;</span>, <span class="at">q =</span> <span class="dv">3</span>, <span class="at">max_dist =</span> <span class="fl">0.5</span>,</span>
-<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>  <span class="at">distance_col =</span> <span class="st">&#39;dist&#39;</span></span>
-<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>)</span></code></pre></div>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">&#39;cosine&#39;</span>, <span class="at">q =</span> <span class="dv">3</span>, <span class="at">max_distance =</span> <span class="fl">0.5</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  <span class="at">distance_col =</span> <span class="st">&#39;dist&#39;</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  <span class="at">nthread =</span> nthread</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>)</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>fuzzy_cos <span class="ot">&lt;-</span> <span class="fu">stringdist_join</span>(</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>  sub_misspellings, words,</span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>  <span class="at">by =</span> <span class="fu">c</span>(<span class="at">misspelling =</span> <span class="st">&#39;word&#39;</span>),</span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">&#39;cosine&#39;</span>, <span class="at">q =</span> <span class="dv">3</span>, <span class="at">max_dist =</span> <span class="fl">0.5</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>  <span class="at">distance_col =</span> <span class="st">&#39;dist&#39;</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>  <span class="at">nthread =</span> nthread</span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>)</span></code></pre></div>
 <p>Upon further exploration, <code>fozziejoin</code> results contain
 additional rows that <code>fuzzyjoin</code> does not. Each row has a
 cosine distance of around 0.5, the threshold for inclusion. This implies
@@ -516,7 +521,7 @@ single-threaded.</p>
 <p>As a result, <code>fozziejoin</code>’s relative performance advantage
 tends to increase with the number of available threads — especially on
 large datasets. Performance tends to be slightly worse on Windows than
-Unix systems due to the relatively efficiency of multithreading via
+Unix systems due to the relative efficiency of multithreading via
 <code>rayon</code>.</p>
 </div>
 <div id="smart-search-strategies" class="section level4">

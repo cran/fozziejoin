@@ -12,7 +12,7 @@
 
 <meta name="author" content="Jon Downs" />
 
-<meta name="date" content="2026-03-04" />
+<meta name="date" content="2026-09-01" />
 
 <title>Fuzzy Matching with fozziejoin</title>
 
@@ -342,7 +342,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h1 class="title toc-ignore">Fuzzy Matching with
 <code>fozziejoin</code></h1>
 <h4 class="author">Jon Downs</h4>
-<h4 class="date">2026-03-04</h4>
+<h4 class="date">2026-09-01</h4>
 
 
 
@@ -407,16 +407,16 @@ supports all the same string distance algorithms as
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>)</span>
 <span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(fozzie))</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 6
-##    year sex   name.x       n    prop name.y        
-##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;    &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;         
-## 1  2000 F     Emily    25953 0.0130  Olunatimilehin
-## 2  2000 F     Brianna  12878 0.00646 Cairiana      
-## 3  2000 F     Victoria 10923 0.00548 Cairiana      
-## 4  2000 F     Haley     9070 0.00455 Taleka        
-## 5  2000 F     Hailey    7831 0.00393 Olunatimilehin
-## 6  2000 F     Maria     6852 0.00343 Cairiana</code></pre>
+##    year sex   name.x     n   prop name.y  
+##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;  &lt;dbl&gt; &lt;chr&gt;   
+## 1  2000 F     Emily  25953 0.0130 Analyhe 
+## 2  2000 F     Emily  25953 0.0130 Cairiana
+## 3  2000 F     Emily  25953 0.0130 Kpvin   
+## 4  2000 F     Emily  25953 0.0130 Pavcy   
+## 5  2000 F     Emily  25953 0.0130 Dbyquan 
+## 6  2000 F     Emily  25953 0.0130 Raoheen</code></pre>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">nrow</span>(fozzie))</span></code></pre></div>
-<pre><code>## [1] 79089</code></pre>
+<pre><code>## [1] 5906780</code></pre>
 <p>Note the return type of the object is <code>tibble</code> in this
 case. If one or both input datasets are a <code>tibble</code>, a
 <code>tibble</code> is returned. Otherwise, a base
@@ -431,13 +431,13 @@ case. If one or both input datasets are a <code>tibble</code>, a
 <span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&#39;name&#39;</span>)</span>
 <span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>)</span>
 <span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="fu">head</span>(fozzie_df)</span></code></pre></div>
-<pre><code>##   year sex   name.x     n       prop         name.y
-## 1 2000   F    Emily 25953 0.01300980 Olunatimilehin
-## 2 2000   F  Brianna 12878 0.00645552       Cairiana
-## 3 2000   F Victoria 10923 0.00547551       Cairiana
-## 4 2000   F    Haley  9070 0.00454664         Taleka
-## 5 2000   F   Hailey  7831 0.00392555 Olunatimilehin
-## 6 2000   F    Maria  6852 0.00343479       Cairiana</code></pre>
+<pre><code>##   year sex name.x     n      prop   name.y
+## 1 2000   F  Emily 25953 0.0130098  Analyhe
+## 2 2000   F  Emily 25953 0.0130098 Cairiana
+## 3 2000   F  Emily 25953 0.0130098    Kpvin
+## 4 2000   F  Emily 25953 0.0130098    Pavcy
+## 5 2000   F  Emily 25953 0.0130098  Dbyquan
+## 6 2000   F  Emily 25953 0.0130098  Raoheen</code></pre>
 </div>
 <div id="difference-and-distance-joins" class="section level3">
 <h3>Difference and Distance joins</h3>

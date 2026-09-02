@@ -8,6 +8,7 @@ library(dplyr)
 
 nsamp <- 100
 seed <- 2016
+nthread <- 2
 
 params <- list(
   list(method = "osa", mode = "inner", max_dist = 1, q = 0),
@@ -30,15 +31,17 @@ for (p in params) {
       sub_misspellings, words,
       by = c(misspelling = "word"),
       method = p$method, mode = p$mode,
-      max_dist = p$max_dist, q = p$q
+      max_dist = p$max_dist, q = p$q,
+      nthread = nthread
     ),
     fozzie = fozzie <- fozzie_string_join(
       sub_misspellings, words,
       by = c(misspelling = "word"),
       method = p$method, how = p$mode,
-      max_distance = p$max_dist, q = p$q
+      max_distance = p$max_dist, q = p$q,
+      nthread = nthread
     ),
-    times = 10
+    times = 5
   )
 
   # Check for equal output
@@ -87,14 +90,16 @@ print(clean_df)
 fozzie_cos <- fozzie_string_join(
   sub_misspellings, words, 
   by = c(misspelling = 'word'), 
-  method='cosine', q = 3, max_distance = 0.5,
-  distance_col = 'dist'
+  method = 'cosine', q = 3, max_distance = 0.5,
+  distance_col = 'dist',
+  nthread = nthread
 )
 fuzzy_cos <- stringdist_join(
   sub_misspellings, words,
   by = c(misspelling = 'word'),
   method = 'cosine', q = 3, max_dist = 0.5,
-  distance_col = 'dist'
+  distance_col = 'dist',
+  nthread = nthread
 )
 
 ## -----------------------------------------------------------------------------

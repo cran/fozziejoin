@@ -1,3 +1,23 @@
+# fozziejoin 0.0.16
+
+- Code within vignettes now run with at most two threads.
+
+# fozziejoin 0.0.15
+
+- Updated the `extendr` Rust crate to version 0.9.0. This addresses the following note that appears during CRAN package checks: Found non-API call to R: ‘R_NamespaceRegistry’.
+- Updated ROxygen version
+
+# fozziejoin 0.0.14
+
+- Jaccard distance join performance improved by sorting qgrams into HashMaps keyed by total number of qgrams. This allows us to safely ignore any cases where Jaccard distance would be over threshold based solely on the size of the q-grams on left and right sides. Special handling for `max_distance=1.0` required.
+- Unit tests added to confirm Jaccard distance works properly at `max_distance=1.0`.
+- README updates to reflect the availability of `fozziejoin` on CRAN.
+- Corrected typo in benchmarking vignette.
+- Unit tests now assume `tz=UTC` for all checks to fix CI/CD errors.
+- Removed unit tests meant to confirm the `nthread` argument. The underlying assumption of these tests is that all tests use two threads, so the elapsed time must be <= 2.5x user time. However, the tests intermittently fail, even after adding some tolerance. Currently, all indications are that the `nthread` argument is working properly.
+- Migrated repository layout: we removed the monorepo structure used for other `fozziejoin` projects (e.g., the Python package). This is an internal reorganization and should not affect downstream users.
+- Updated to `extendr-api` version 0.8.2, which supports Windows ARM64 and unconditionally passes the correct `--target` on Windows. Thank you to [Jeroen Ooms](https://github.com/jeroen) for the contribution. 
+
 # fozziejoin 0.0.13
 
 - The functions `fozzie_difference_join_rs`, `fozzie_distance_join_rs`, `fozzie_interval_join_rs`, `fozzie_regex_join_rs`, and `fozzie_string_join_rs` functions are no longer exported and their `.Rd` documentation files have been removed.
