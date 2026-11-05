@@ -12,7 +12,7 @@
 
 <meta name="author" content="Jon Downs" />
 
-<meta name="date" content="2026-09-01" />
+<meta name="date" content="2026-11-03" />
 
 <title>String Distance Benchmarking</title>
 
@@ -341,7 +341,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">String Distance Benchmarking</h1>
 <h4 class="author">Jon Downs</h4>
-<h4 class="date">2026-09-01</h4>
+<h4 class="date">2026-11-03</h4>
 
 
 
@@ -447,7 +447,7 @@ performance across methods and sample sizes.</p>
 <span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>  <span class="at">expr =</span> summary_stats<span class="sc">$</span>expr,</span>
 <span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>  <span class="at">method =</span> summary_stats<span class="sc">$</span>method,</span>
 <span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>  <span class="at">n_comps =</span> summary_stats<span class="sc">$</span>n_comps,</span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>  <span class="at">mean_time =</span> summary_stats<span class="sc">$</span>time <span class="sc">/</span> <span class="fl">1e6</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>  <span class="at">mean_time =</span> summary_stats<span class="sc">$</span>time <span class="sc">/</span> <span class="dv">1</span>e6</span>
 <span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>)</span>
 <span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a></span>
 <span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>wide_df <span class="ot">&lt;-</span> <span class="fu">reshape</span>(</span>
@@ -467,9 +467,9 @@ performance across methods and sample sizes.</p>
 <pre><code>## # A tibble: 3 × 5
 ##   method  n_comps mean_time.fuzzy mean_time.fozzie mean_ratio
 ##   &lt;chr&gt;     &lt;int&gt;           &lt;dbl&gt;            &lt;dbl&gt;      &lt;dbl&gt;
-## 1 jaccard 2013700           2874.             16.4      175. 
-## 2 lv      2013700           1189.             12.7       93.9
-## 3 osa     2013700           1255.             17.2       73.1</code></pre>
+## 1 jaccard 2013700           2894.             16.3      178. 
+## 2 lv      2013700           1284.             13.2       97.0
+## 3 osa     2013700           1270.             18.0       70.6</code></pre>
 </div>
 <div id="considerations-when-benchmarking" class="section level3">
 <h3>Considerations when Benchmarking</h3>

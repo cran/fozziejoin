@@ -1,8 +1,10 @@
 Package: fozziejoin
 Title: Utilities for Joining Dataframes with Inexact Matching
-Version: 0.0.16
+Version: 0.0.17
 Authors@R: c(
     person("Jon", "Downs", , "jon@jondowns.net", role = c("aut", "cre")),
+    person("Jeroen", "Ooms", role = c("ctb"), email = "jeroenooms@gmail.com",
+      comment = c(ORCID = "0000-0002-4035-0289")),
     person("The authors of the dependency Rust crates", role = c("ctb", "cph"),
            comment = "see inst/AUTHORS file for details")
   )
@@ -34,10 +36,11 @@ BugReports: https://github.com/fozzieverse/fozziejoin/issues
 SystemRequirements: Cargo (Rust's package manager), rustc, xz
 Config/roxygen2/version: 8.1.0
 NeedsCompilation: yes
-Packaged: 2026-09-02 06:00:58 UTC; jon
+Packaged: 2026-11-03 23:14:54 UTC; jon
 Author: Jon Downs [aut, cre],
+  Jeroen Ooms [ctb] (ORCID: <https://orcid.org/0000-0002-4035-0289>),
   The authors of the dependency Rust crates [ctb, cph] (see inst/AUTHORS
     file for details)
 Maintainer: Jon Downs <jon@jondowns.net>
 Repository: CRAN
-Date/Publication: 2026-09-02 07:00:02 UTC
+Date/Publication: 2026-11-05 23:40:02 UTC
